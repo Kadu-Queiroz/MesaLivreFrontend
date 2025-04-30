@@ -1,24 +1,45 @@
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function CaptivePortal() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const enviarPresenca = async () => {
+      try {
+        // Captura dados básicos para simular presença
+        const data = {
+          timestamp: new Date().toISOString(),
+          userAgent: navigator.userAgent,
+          language: navigator.language,
+          platform: navigator.platform,
+        };
+
+        await fetch('https://seu-backend.com/api/presenca', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        console.log('Presença registrada');
+      } catch (error) {
+        console.error('Erro ao registrar presença:', error);
+      }
+    };
+
+    enviarPresenca();
+
+    // Redireciona para o app após 2 segundos
+    const timer = setTimeout(() => navigate('/'), 2000);
+    return () => clearTimeout(timer);
+  }, [navigate]);
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-      <h1 className="text-3xl font-bold mb-6">Bem-vindo ao MesaLivre</h1>
-      <p className="mb-8 text-center max-w-md">Escolha seu tipo de acesso para continuar.</p>
-      <div className="flex gap-4">
-        <Link
-          to="/cliente"
-          className="px-6 py-3 bg-orange-500 hover:bg-orange-600 rounded-lg font-semibold"
-        >
-          Sou Cliente
-        </Link>
-        <Link
-          to="/admin"
-          className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold"
-        >
-          Sou da Equipe
-        </Link>
-      </div>
+    <div className="h-screen flex flex-col items-center justify-center text-white bg-[#1A1A1A]">
+      <h1 className="text-2xl font-bold mb-2">Conectado com sucesso!</h1>
+      <p className="text-muted mb-4">Aguarde, você está sendo redirecionado...</p>
     </div>
   );
 }
