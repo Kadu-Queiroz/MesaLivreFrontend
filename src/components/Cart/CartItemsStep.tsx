@@ -20,14 +20,6 @@ export default function CartItemsStep() {
         <p className="text-[#495057] mb-6">
           Adicione algum item gostoso para começar
         </p>
-        <button
-          type="button"
-          aria-label="Voltar para o menu"
-          className="text-[#E63946] font-medium"
-          onClick={() => navigate('/')}
-        >
-          Voltar ao menu
-        </button>
       </div>
     );
   }

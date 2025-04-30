@@ -38,6 +38,14 @@ export interface ItemCarrinho {
   }[];
 }
 
+export interface Pedido {
+  id: string;
+  data: string;
+  itens: ItemCarrinho[];
+  total: number;
+  metodoPagamento: 'cartao' | 'dinheiro';
+}
+
 // Opções de ordenação do menu
 export type OpcaoOrdenacao =
   | 'popularidade'

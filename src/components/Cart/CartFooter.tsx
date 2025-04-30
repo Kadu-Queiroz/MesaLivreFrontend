@@ -3,19 +3,19 @@ import { ArrowRight } from 'lucide-react';
 import { useCarrinho } from '@/context/CartContext';
 
 interface CartFooterProps {
-  etapaCheckout: number;
   carregando: boolean;
   realizarCheckout: () => void;
+  etapa: number;
 }
 
 export default function CartFooter({
-  etapaCheckout,
   carregando,
   realizarCheckout,
+  etapa,
 }: CartFooterProps) {
   const { itens, totalPreco } = useCarrinho();
 
-  if ((etapaCheckout === 0 || etapaCheckout === 1) && itens.length > 0) {
+  if (etapa === 0 && itens.length > 0) {
     return (
       <div className="p-4 border-t border-[#495057]/30">
         <div className="flex justify-between items-center mb-3">
@@ -26,11 +26,9 @@ export default function CartFooter({
         </div>
 
         <button
-          className={`
-            w-full py-3 rounded-lg font-bold text-[#F8F9FA] flex items-center justify-center
-            ${carregando ? 'bg-[#E63946]/70' : 'bg-[#E63946]'}
-            transition-all duration-200 transform hover:translate-y-[-2px] active:translate-y-[0px]
-          `}
+          className={`w-full py-3 rounded-lg font-bold text-white flex items-center justify-center
+            ${carregando ? 'bg-primary/70' : 'bg-primary'}
+            transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0`}
           onClick={realizarCheckout}
           disabled={carregando}
         >
@@ -49,18 +47,18 @@ export default function CartFooter({
                   r="10"
                   stroke="currentColor"
                   strokeWidth="4"
-                ></circle>
+                />
                 <path
                   className="opacity-75"
                   fill="currentColor"
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                ></path>
+                />
               </svg>
-              Processando...
+              Enviando...
             </>
           ) : (
             <>
-              {etapaCheckout === 0 ? 'Finalizar pedido' : 'Confirmar pagamento'}
+              Enviar pedido
               <ArrowRight className="ml-2" size={20} />
             </>
           )}
