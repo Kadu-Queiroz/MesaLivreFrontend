@@ -1,1 +1,19 @@
-{ "compilerOptions": { "target": "ESNext", "module": "ESNext", "jsx": "react-jsx" } }
+{
+    "compilerOptions": {
+      "target": "ESNext",
+      "module": "ESNext",
+      "jsx": "react-jsx",
+      "moduleResolution": "Node",
+      "types": ["vite/client", "node"],
+      "baseUrl": "./",
+      "paths": {
+        "@/*": ["src/*"]
+      },
+      "allowSyntheticDefaultImports": true,
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "strict": true,
+      "skipLibCheck": true
+    },
+    "include": ["src", "vite.config.ts"]
+  }  
